@@ -9,6 +9,8 @@ import '../widgets/customer_card.dart';
 import '../theme/app_theme.dart';
 import 'invoices_screen.dart';
 import 'customers_screen.dart';
+import 'customer_detail_screen.dart';
+import 'invoice_detail_screen.dart';
 
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});
@@ -118,7 +120,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     padding: const EdgeInsets.only(bottom: 12.0),
                     child: InvoiceCard(
                       invoice: inv,
-                      onTap: () {}, // Detail screen could be added later
+                      onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => InvoiceDetailScreen(invoice: inv))),
                     ),
                   )).toList(),
                 ),
@@ -147,7 +149,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     padding: const EdgeInsets.only(bottom: 12.0),
                     child: CustomerCard(
                       customer: cust,
-                      onTap: () {},
+                      onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => CustomerDetailScreen(customer: cust))),
                     ),
                   )).toList(),
                 ),

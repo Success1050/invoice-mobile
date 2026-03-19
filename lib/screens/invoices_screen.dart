@@ -7,6 +7,7 @@ import '../widgets/app_shell.dart';
 import '../widgets/invoice_card.dart';
 import '../widgets/search_bar.dart';
 import '../theme/app_theme.dart';
+import 'invoice_detail_screen.dart';
 import '../models/customer.dart';
 
 class InvoicesScreen extends StatefulWidget {
@@ -234,7 +235,7 @@ class _InvoicesScreenState extends State<InvoicesScreen> {
                           padding: const EdgeInsets.only(bottom: 12.0),
                           child: InvoiceCard(
                             invoice: filteredInvoices[index],
-                            onTap: () {},
+                            onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => InvoiceDetailScreen(invoice: filteredInvoices[index]))),
                             onEdit: () => _showAddInvoiceDialog(filteredInvoices[index]),
                             onDelete: () async {
                               final confirm = await showDialog<bool>(

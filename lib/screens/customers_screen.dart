@@ -6,6 +6,7 @@ import '../widgets/app_shell.dart';
 import '../widgets/customer_card.dart';
 import '../widgets/search_bar.dart';
 import '../theme/app_theme.dart';
+import 'customer_detail_screen.dart';
 
 class CustomersScreen extends StatefulWidget {
   const CustomersScreen({super.key});
@@ -131,7 +132,7 @@ class _CustomersScreenState extends State<CustomersScreen> {
                           padding: const EdgeInsets.only(bottom: 12.0),
                           child: CustomerCard(
                             customer: filteredCustomers[index],
-                            onTap: () {},
+                            onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => CustomerDetailScreen(customer: filteredCustomers[index]))),
                             onEdit: () => _showAddCustomerDialog(filteredCustomers[index]),
                             onDelete: () async {
                               final confirm = await showDialog<bool>(
