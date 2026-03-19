@@ -6,7 +6,7 @@ import '../models/invoice.dart';
 class ApiService {
   // Use http://10.0.2.2:3001 for Android Emulator, or http://localhost:3001 for Web/Desktop
   // For Windows development, localhost should work for Windows target
-  static const String baseUrl = 'http://10.116.5.101:5000';
+  static const String baseUrl = 'https://invoice-backend-734y.onrender.com';
 
   // --- CUSTOMERS ---
   Future<List<Customer>> getCustomers() async {
