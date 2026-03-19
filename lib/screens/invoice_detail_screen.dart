@@ -76,28 +76,7 @@ class InvoiceDetailScreen extends StatelessWidget {
               ),
             ),
             
-            SizedBox(height: 40),
-            
-            // Actions
-            Row(
-              children: [
-                Expanded(
-                  child: OutlinedButton.icon(
-                    onPressed: () {}, // Future PDF download?
-                    icon: Icon(Icons.download_rounded, size: 20),
-                    label: Text('Download PDF'),
-                  ),
-                ),
-                SizedBox(width: 16),
-                Expanded(
-                  child: ElevatedButton.icon(
-                    onPressed: () {}, // Future email link
-                    icon: Icon(Icons.send_rounded, size: 20),
-                    label: Text('Send Link'),
-                  ),
-                ),
-              ],
-            ),
+            SizedBox(height: 80),
           ],
         ),
       ),

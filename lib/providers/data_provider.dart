@@ -9,13 +9,21 @@ class DataProvider with ChangeNotifier {
   List<Customer> _customers = [];
   List<Invoice> _invoices = [];
   bool _isLoading = false;
+  String? _errorMessage;
 
   List<Customer> get customers => _customers;
   List<Invoice> get invoices => _invoices;
   bool get isLoading => _isLoading;
+  String? get errorMessage => _errorMessage;
+
+  void clearError() {
+    _errorMessage = null;
+    notifyListeners();
+  }
 
   Future<void> fetchAll() async {
     _isLoading = true;
+    _errorMessage = null;
     notifyListeners();
 
     try {
@@ -24,9 +32,15 @@ class DataProvider with ChangeNotifier {
         _apiService.getInvoices(),
       ]);
 
-      _customers = results[0] as List<Customer>;
-      _invoices = results[1] as List<Invoice>;
+      _customers = results[0];
+      _invoices = results[1];
+      
+      if (_customers.isEmpty && _invoices.isEmpty) {
+        // Only if both are empty might we consider it a possible total connection failure
+        // but it could also just be empty DB.
+      }
     } catch (e) {
+      _errorMessage = 'Failed to load data. Please check your connection.';
       print('Error fetching data: $e');
     } finally {
       _isLoading = false;

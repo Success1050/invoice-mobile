@@ -23,7 +23,25 @@ class _DashboardScreenState extends State<DashboardScreen> {
   @override
   void initState() {
     super.initState();
-    Future.microtask(() => context.read<DataProvider>().fetchAll());
+    Future.microtask(() {
+      final data = context.read<DataProvider>();
+      data.fetchAll();
+      
+      // Setup error listener
+      data.addListener(() {
+        if (data.errorMessage != null && mounted) {
+           ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(data.errorMessage!),
+              backgroundColor: AppTheme.accentRose,
+              behavior: SnackBarBehavior.floating,
+              action: SnackBarAction(label: 'Retry', textColor: Colors.white, onPressed: () => data.fetchAll()),
+            ),
+          );
+          data.clearError();
+        }
+      });
+    });
   }
 
   @override

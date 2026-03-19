@@ -183,8 +183,14 @@ class _InvoicesScreenState extends State<InvoicesScreen> {
                 return Padding(
                   padding: const EdgeInsets.only(right: 8.0),
                   child: ChoiceChip(
-                    label: Text(f.toUpperCase(), style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold)),
+                    label: Text(f.toUpperCase()),
+                    labelStyle: TextStyle(
+                      fontSize: 10,
+                      fontWeight: FontWeight.bold,
+                      color: isActive ? AppTheme.accentBlue : AppTheme.textMuted,
+                    ),
                     selected: isActive,
+                    showCheckmark: false,
                     onSelected: (val) => setState(() => _statusFilter = f),
                     backgroundColor: AppTheme.bgCard,
                     selectedColor: AppTheme.accentBlue.withValues(alpha: 0.1),
