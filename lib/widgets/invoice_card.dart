@@ -8,6 +8,7 @@ class InvoiceCard extends StatelessWidget {
   final VoidCallback onTap;
   final VoidCallback? onEdit;
   final VoidCallback? onDelete;
+  final VoidCallback? onCustomerTap;
 
   const InvoiceCard({
     super.key,
@@ -15,6 +16,7 @@ class InvoiceCard extends StatelessWidget {
     required this.onTap,
     this.onEdit,
     this.onDelete,
+    this.onCustomerTap,
   });
 
   @override
@@ -52,16 +54,7 @@ class InvoiceCard extends StatelessWidget {
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: Center(
-                  child: Padding(
-                    padding: const EdgeInsets.all(4.0),
-                    child: FittedBox(
-                      fit: BoxFit.scaleDown,
-                      child: Text(
-                        '#${invoice.id}',
-                        style: TextStyle(color: statusColor, fontWeight: FontWeight.bold, fontSize: 10),
-                      ),
-                    ),
-                  ),
+                  child: Icon(Icons.receipt_long_rounded, color: statusColor, size: 24),
                 ),
               ),
               SizedBox(width: 12),
@@ -99,10 +92,17 @@ class InvoiceCard extends StatelessWidget {
                       ],
                     ),
                     SizedBox(height: 2),
-                    Text(
-                      invoice.customer?.name ?? 'Unknown Customer',
-                      style: TextStyle(color: AppTheme.textSecondary, fontSize: 11),
-                      overflow: TextOverflow.ellipsis,
+                    GestureDetector(
+                      onTap: onCustomerTap,
+                      child: Text(
+                        invoice.customer?.name ?? 'Unknown Customer',
+                        style: TextStyle(
+                          color: onCustomerTap != null ? AppTheme.accentBlue : AppTheme.textSecondary, 
+                          fontSize: 11,
+                          fontWeight: onCustomerTap != null ? FontWeight.bold : FontWeight.normal,
+                        ),
+                        overflow: TextOverflow.ellipsis,
+                      ),
                     ),
                   ],
                 ),

@@ -168,6 +168,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     child: CustomerCard(
                       customer: cust,
                       onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => CustomerDetailScreen(customer: cust))),
+                      onViewInvoices: () => Navigator.push(context, MaterialPageRoute(builder: (_) => InvoicesScreen(initialCustomerId: cust.id))),
                     ),
                   )).toList(),
                 ),

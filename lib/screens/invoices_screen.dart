@@ -11,7 +11,9 @@ import 'invoice_detail_screen.dart';
 import '../models/customer.dart';
 
 class InvoicesScreen extends StatefulWidget {
-  const InvoicesScreen({super.key});
+  final String? initialSearchQuery;
+  final int? initialCustomerId;
+  const InvoicesScreen({super.key, this.initialSearchQuery, this.initialCustomerId});
 
   @override
   State<InvoicesScreen> createState() => _InvoicesScreenState();
@@ -19,12 +21,16 @@ class InvoicesScreen extends StatefulWidget {
 
 class _InvoicesScreenState extends State<InvoicesScreen> {
   String _searchQuery = '';
+  int? _customerIdFilter;
   String _statusFilter = 'all';
+  bool _sortByNewest = true;
   final List<String> _filters = ['all', 'paid', 'pending', 'overdue', 'draft'];
 
   @override
   void initState() {
     super.initState();
+    _searchQuery = widget.initialSearchQuery ?? '';
+    _customerIdFilter = widget.initialCustomerId;
     Future.microtask(() => context.read<DataProvider>().fetchAll());
   }
 
@@ -151,8 +157,15 @@ class _InvoicesScreenState extends State<InvoicesScreen> {
           (inv.description?.toLowerCase().contains(_searchQuery.toLowerCase()) ?? false) ||
           inv.id.toString().contains(_searchQuery);
       final matchStatus = _statusFilter == 'all' || inv.status.toLowerCase() == _statusFilter;
-      return matchSearch && matchStatus;
+      final matchCustomerId = _customerIdFilter == null || inv.customerId == _customerIdFilter;
+      return matchSearch && matchStatus && matchCustomerId;
     }).toList();
+
+    if (_sortByNewest) {
+      filteredInvoices.sort((a, b) => b.id.compareTo(a.id));
+    } else {
+      filteredInvoices.sort((a, b) => a.id.compareTo(b.id));
+    }
 
     final pageTotal = filteredInvoices.fold(0.0, (sum, i) => sum + i.amount);
 
@@ -174,30 +187,92 @@ class _InvoicesScreenState extends State<InvoicesScreen> {
             ),
           ),
           SizedBox(height: 12),
+          if (_customerIdFilter != null) ...[
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+              child: Container(
+                padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                decoration: BoxDecoration(
+                  color: AppTheme.accentIndigo.withValues(alpha: 0.1),
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border.all(color: AppTheme.accentIndigo.withValues(alpha: 0.2)),
+                ),
+                child: Row(
+                  children: [
+                    Icon(Icons.person, size: 16, color: AppTheme.accentIndigo),
+                    SizedBox(width: 8),
+                    Expanded(
+                      child: Text(
+                        'Filtered by Customer #${_customerIdFilter}',
+                        style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppTheme.accentIndigo),
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: () => setState(() => _customerIdFilter = null),
+                      child: Icon(Icons.close, size: 16, color: AppTheme.accentIndigo),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             padding: EdgeInsets.symmetric(horizontal: 20),
             child: Row(
-              children: _filters.map((f) {
-                final isActive = _statusFilter == f;
-                return Padding(
-                  padding: const EdgeInsets.only(right: 8.0),
-                  child: ChoiceChip(
-                    label: Text(f.toUpperCase()),
-                    labelStyle: TextStyle(
-                      fontSize: 10,
-                      fontWeight: FontWeight.bold,
-                      color: isActive ? AppTheme.accentBlue : AppTheme.textMuted,
+              children: [
+                ..._filters.map((f) {
+                  final isActive = _statusFilter == f;
+                  return Padding(
+                    padding: const EdgeInsets.only(right: 8.0),
+                    child: ChoiceChip(
+                      label: Text(f.toUpperCase()),
+                      labelStyle: TextStyle(
+                        fontSize: 10,
+                        fontWeight: FontWeight.bold,
+                        color: isActive ? AppTheme.accentBlue : AppTheme.textMuted,
+                      ),
+                      selected: isActive,
+                      showCheckmark: false,
+                      onSelected: (val) => setState(() => _statusFilter = f),
+                      backgroundColor: AppTheme.bgCard,
+                      selectedColor: AppTheme.accentBlue.withValues(alpha: 0.1),
+                      side: BorderSide(color: isActive ? AppTheme.accentBlue : AppTheme.borderSubtle, width: 0.5),
                     ),
-                    selected: isActive,
-                    showCheckmark: false,
-                    onSelected: (val) => setState(() => _statusFilter = f),
-                    backgroundColor: AppTheme.bgCard,
-                    selectedColor: AppTheme.accentBlue.withValues(alpha: 0.1),
-                    side: BorderSide(color: isActive ? AppTheme.accentBlue : AppTheme.borderSubtle, width: 0.5),
+                  );
+                }),
+                Container(
+                  height: 24,
+                  width: 1,
+                  margin: EdgeInsets.symmetric(horizontal: 8),
+                  color: AppTheme.borderSubtle,
+                ),
+                GestureDetector(
+                  onTap: () => setState(() => _sortByNewest = !_sortByNewest),
+                  child: Container(
+                    padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                    decoration: BoxDecoration(
+                      color: AppTheme.bgCard,
+                      borderRadius: BorderRadius.circular(12),
+                      border: Border.all(color: AppTheme.borderSubtle, width: 0.5),
+                    ),
+                    child: Row(
+                      children: [
+                        Icon(
+                          _sortByNewest ? Icons.arrow_downward_rounded : Icons.arrow_upward_rounded, 
+                          size: 14, 
+                          color: AppTheme.accentBlue
+                        ),
+                        SizedBox(width: 4),
+                        Text(
+                          _sortByNewest ? 'NEWEST' : 'OLDEST',
+                          style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: AppTheme.textPrimary),
+                        ),
+                      ],
+                    ),
                   ),
-                );
-              }).toList(),
+                ),
+              ],
             ),
           ),
           if (filteredInvoices.isNotEmpty) ...[
@@ -242,6 +317,7 @@ class _InvoicesScreenState extends State<InvoicesScreen> {
                           child: InvoiceCard(
                             invoice: filteredInvoices[index],
                             onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => InvoiceDetailScreen(invoice: filteredInvoices[index]))),
+                            onCustomerTap: () => setState(() => _customerIdFilter = filteredInvoices[index].customerId),
                             onEdit: () => _showAddInvoiceDialog(filteredInvoices[index]),
                             onDelete: () async {
                               final confirm = await showDialog<bool>(

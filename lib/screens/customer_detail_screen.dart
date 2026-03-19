@@ -6,6 +6,7 @@ import '../providers/data_provider.dart';
 import '../theme/app_theme.dart';
 import '../widgets/invoice_card.dart';
 import 'invoice_detail_screen.dart';
+import 'invoices_screen.dart';
 
 class CustomerDetailScreen extends StatelessWidget {
   final Customer customer;
@@ -87,7 +88,10 @@ class CustomerDetailScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text('Client Activity', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white)),
-                Text('${invoicesForClient.length} total', style: TextStyle(color: AppTheme.textMuted, fontSize: 13, fontWeight: FontWeight.bold)),
+                TextButton(
+                  onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => InvoicesScreen(initialCustomerId: customer.id))),
+                  child: Text('View All →', style: TextStyle(color: AppTheme.accentBlue, fontSize: 13, fontWeight: FontWeight.bold)),
+                ),
               ],
             ),
             SizedBox(height: 16),

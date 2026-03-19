@@ -7,6 +7,7 @@ class CustomerCard extends StatelessWidget {
   final VoidCallback onTap;
   final VoidCallback? onEdit;
   final VoidCallback? onDelete;
+  final VoidCallback? onViewInvoices;
 
   const CustomerCard({
     super.key,
@@ -14,6 +15,7 @@ class CustomerCard extends StatelessWidget {
     required this.onTap,
     this.onEdit,
     this.onDelete,
+    this.onViewInvoices,
   });
 
   String getInitials(String name) {
@@ -68,7 +70,17 @@ class CustomerCard extends StatelessWidget {
                   ],
                 ),
               ),
-              if (onEdit != null || onDelete != null) ...[
+              if (onEdit != null || onDelete != null || onViewInvoices != null) ...[
+                if (onViewInvoices != null) ...[
+                  IconButton(
+                    icon: Icon(Icons.receipt_long_outlined, size: 18, color: AppTheme.accentIndigo),
+                    onPressed: onViewInvoices,
+                    visualDensity: VisualDensity.compact,
+                    padding: EdgeInsets.zero,
+                    constraints: BoxConstraints(),
+                  ),
+                  SizedBox(width: 8),
+                ],
                 IconButton(
                   icon: Icon(Icons.edit_outlined, size: 18, color: AppTheme.accentBlue),
                   onPressed: onEdit,

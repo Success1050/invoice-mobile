@@ -8,9 +8,11 @@ A premium, cross-platform mobile application built with **Flutter** for managing
 - **Invoice Tracking**: 
   - Manage the full lifecycle of invoices with CRUD support.
   - Quick-filter actions (Paid, Pending, Overdue, Draft).
+  - "Latest Addition" sorting with Newest/Oldest toggle.
   - High-performance search by reference, customer name, or ID.
 - **Customer CRM**: 
   - Centralized customer profiles with one-tap details.
+  - Smart Navigation: Filter invoices by customer name or ID with one-tap shortcuts from any screen.
   - Detailed client-specific revenue and activity logs.
 - **Modern Premium UI/UX**: 
   - Dark mode design with glassmorphism and smooth animations.
