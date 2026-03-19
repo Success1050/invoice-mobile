@@ -32,8 +32,8 @@ class DataProvider with ChangeNotifier {
         _apiService.getInvoices(),
       ]);
 
-      _customers = results[0];
-      _invoices = results[1];
+      _customers = results[0] as List<Customer>;
+      _invoices = results[1] as List<Invoice>;
       
       if (_customers.isEmpty && _invoices.isEmpty) {
         // Only if both are empty might we consider it a possible total connection failure
