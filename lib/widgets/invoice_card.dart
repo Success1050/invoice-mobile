@@ -52,20 +52,32 @@ class InvoiceCard extends StatelessWidget {
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: Center(
-                  child: Text(
-                    '#${invoice.id}',
-                    style: TextStyle(color: statusColor, fontWeight: FontWeight.bold, fontSize: 10),
+                  child: Padding(
+                    padding: const EdgeInsets.all(4.0),
+                    child: FittedBox(
+                      fit: BoxFit.scaleDown,
+                      child: Text(
+                        '#${invoice.id}',
+                        style: TextStyle(color: statusColor, fontWeight: FontWeight.bold, fontSize: 10),
+                      ),
+                    ),
                   ),
                 ),
               ),
-              SizedBox(width: 16),
+              SizedBox(width: 12),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Row(
                       children: [
-                        Text('Invoice #${invoice.id}', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13)),
+                        Flexible(
+                          child: Text(
+                            'Invoice #${invoice.id}',
+                            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13),
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
                         if (invoice.description != null && invoice.description!.isNotEmpty) ...[
                           SizedBox(width: 6),
                           Flexible(
