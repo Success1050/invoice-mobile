@@ -1,37 +1,36 @@
-# InvoiceFlow Mobile 📱
+# InvoiceFlow - Mobile (Flutter) 📱
 
-A premium, cross-platform mobile application built with **Flutter** for managing invoices and customers. This app provides a seamless interface to track business finances, search through records, and manage your client base on the go.
+A premium, cross-platform mobile application built with **Flutter** for managing invoices and customers. Part of the **InvoiceFlow** ecosystem, this app brings professional business tools to your fingertips with a modern, high-performance experience.
 
 ## ✨ Features
 
-- **Dashboard Overview**: Real-time business statistics, revenue collection tracking, and system health breakdown.
-- **Invoice Management**: 
-  - Full CRUD support (Create, Read, Update, Delete).
-  - Status-based filtering (Paid, Pending, Overdue, Draft).
-  - Search by reference, customer name, or ID.
-- **Customer Database**:
-  - Manage client profiles with contact details.
-  - Detailed view showing customer-specific activity and total revenue.
-- **Premium UI/UX**:
-  - Modern Dark Mode design with vibrant gradients.
-  - Fully responsive layout optimized for varied screen sizes.
-  - Glassmorphism effects and smooth transitions.
-- **Robust Error Handling**: Graceful API error handling with user-friendly retry mechanisms.
+- **Dynamic Dashboard**: View business health, real-time revenue collection, and system metrics.
+- **Invoice Tracking**: 
+  - Manage the full lifecycle of invoices with CRUD support.
+  - Quick-filter actions (Paid, Pending, Overdue, Draft).
+  - High-performance search by reference, customer name, or ID.
+- **Customer CRM**: 
+  - Centralized customer profiles with one-tap details.
+  - Detailed client-specific revenue and activity logs.
+- **Modern Premium UI/UX**: 
+  - Dark mode design with glassmorphism and smooth animations.
+  - Optimized layouts with robust overflow handling for varied mobile screen widths.
+- **Error Resilient**: Robust API error handling with built-in retry mechanisms and user-friendly SnackBar messaging.
 
-## 🛠️ Tech Stack
+## 🛠️ Technology Stack
 
-- **Core**: Flutter / Dart
-- **State Management**: Provider
-- **Networking**: Http
-- **Theming**: Custom Dark Theme with Google Fonts (Inter)
-- **Formatting**: Intl (Currency & Date)
+- **Framework**: [Flutter](https://flutter.dev/) (latest stable version)
+- **Language**: [Dart](https://dart.dev/)
+- **State Management**: [Provider](https://pub.dev/packages/provider)
+- **Networking**: [Http](https://pub.dev/packages/http)
+- **Theming**: Custom Dark Theme with Inter via Google Fonts.
+- **Localization**: Intl (Currency and Date formatting).
 
 ## 🚀 Getting Started
 
 ### Prerequisites
-
 - Flutter SDK (latest stable version)
-- A running instance of the **InvoiceFlow Backend** (NestJS)
+- A running instance of the [InvoiceFlow Backend](https://github.com/Success1050/invoice-backend).
 
 ### Installation
 
@@ -46,32 +45,21 @@ A premium, cross-platform mobile application built with **Flutter** for managing
    flutter pub get
    ```
 
-3. **Configure API Endpoint**:
-   Open `lib/services/api_service.dart` and update the `baseUrl` to your machine's local IP address:
+### Running the Project
+
+1. **Configure API Endpoint**: Update `lib/services/api_service.dart` with your machine's local IP address.
    ```dart
-   static const String baseUrl = 'http://YOUR_LOCAL_IP:5000';
+   static const String baseUrl = 'http://YOUR_LOCAL_IP:3000';
    ```
 
-4. **Run the application**:
+2. **Run the application**:
    ```bash
    flutter run
    ```
 
-## 📂 Project Structure
-
-```
-lib/
-├── models/      # Data entities (Invoice, Customer)
-├── providers/   # State management (DataProvider)
-├── screens/     # Application pages (Dashboard, Details, etc.)
-├── services/    # API communication (ApiService)
-├── theme/       # Global styling and color palette
-└── widgets/     # Reusable UI components
-```
-
-## 🔧 Backend Setup Tip
-
-Ensure your NestJS backend is listening on all network interfaces (`0.0.0.0`) so that a physical device on your network can communicate with it.
+## 🔗 Related Repositories
+- **Backend (NestJS)**: [invoice-backend](https://github.com/Success1050/invoice-backend)
+- **Web Frontend (Next.js)**: [invoice-frontend](https://github.com/Success1050/invoice-frontend)
 
 ---
-*Created as part of the Full-Stack Developer Assessment.*
+*Developed by Emmanuel Success as part of the Full-Stack Developer Assessment.*
