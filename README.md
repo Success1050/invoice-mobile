@@ -1,8 +1,8 @@
-# InvoiceFlow - Mobile (Flutter) 📱
+# InvoiceFlow - Mobile (Flutter)
 
 A premium, cross-platform mobile application built with **Flutter** for managing invoices and customers. Part of the **InvoiceFlow** ecosystem, this app brings professional business tools to your fingertips with a modern, high-performance experience.
 
-## ✨ Features
+## Features
 
 - **Dynamic Dashboard**: View business health, real-time revenue collection, and system metrics.
 - **Invoice Tracking**: 
@@ -19,7 +19,7 @@ A premium, cross-platform mobile application built with **Flutter** for managing
   - Optimized layouts with robust overflow handling for varied mobile screen widths.
 - **Error Resilient**: Robust API error handling with built-in retry mechanisms and user-friendly SnackBar messaging.
 
-## 🛠️ Technology Stack
+## Technology Stack
 
 - **Framework**: [Flutter](https://flutter.dev/) (latest stable version)
 - **Language**: [Dart](https://dart.dev/)
@@ -28,7 +28,7 @@ A premium, cross-platform mobile application built with **Flutter** for managing
 - **Theming**: Custom Dark Theme with Inter via Google Fonts.
 - **Localization**: Intl (Currency and Date formatting).
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
 - Flutter SDK (latest stable version)
@@ -59,7 +59,7 @@ A premium, cross-platform mobile application built with **Flutter** for managing
    flutter run
    ```
 
-## 🔗 Related Repositories
+## Related Repositories
 - **Backend (NestJS)**: [invoice-backend](https://github.com/Success1050/invoice-backend)
 - **Web Frontend (Next.js)**: [invoice-frontend](https://github.com/Success1050/invoice-frontend)
 
